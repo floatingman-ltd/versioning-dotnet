@@ -40,7 +40,13 @@ They pretty much cover off the goals from above.
 
 ### Configuring the Build
 
-## Configuring the Tests
+Let's add the `Floatingman.Common` to the project - later on we'll try to use alpha packages, but not today.
+
+```sh
+dotnet add Versioner package Floatingman.Common
+```
+
+### Configuring the Tests
 
 Setup the tooling to generate `coverage.info` file.
 
@@ -49,6 +55,8 @@ dotnet add Versioner.Tests package coverlet.msbuild
 ```
 
 > Don't forget to add the `TestResults/` to the `.gitignore` file.
+
+
 
 ## Added Bonus
 
