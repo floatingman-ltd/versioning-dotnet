@@ -11,8 +11,32 @@
   
 ## Tools in Play
 
+### Setup Initial DotNet
+
 - **dotnet core** just because that's what it is
-- 
+
+```sh
+dotnet new sln --name Versioner
+dotnet new classlib --name Versioner
+dotnet new xunit --name Versioner.Tests
+dotnet new console --name Versoner.Usage
+
+dotnet sln add Versioner
+dotnet sln add Versioner.Tests
+dotnet sln add Versioner.Usage
+```
+
+_Update the `.gitignore` file to include the default .dotnet stuff._
+
+### Actions
+
+We brought in three github action definition files.
+
+- `any-push.yml`
+- `main-push.yml`
+- `main-pr.yml`
+
+They pretty much cover off the goals from above.
 
 ## Added Bonus
 
