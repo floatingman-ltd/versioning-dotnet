@@ -34,13 +34,15 @@ jobs:
 
     - name: Test and Coverage
       # dotnet test src/Floatingman.CommandLineParser.Tests/Floatingman.CommandLineParser.Tests.csproj  /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      # The project name is not actually needed at this point - it will build and tests each test project.
       run: >
-        dotnet test src/Floatingman.CommandLineParser.Tests/Floatingman.CommandLineParser.Tests.csproj  
+        dotnet test 
         /p:CollectCoverage=true 
         /p:CoverletOutput=TestResults/ 
         /p:CoverletOutputFormat=lcov
+
     - name: Publish coverage report to coveralls.io   
       uses: coverallsapp/github-action@master   
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} 
-        path-to-lcov: src/Floatingman.CommandLineParser.Tests/TestResults/coverage.info 
+        path-to-lcov: src/Versioner.Tests/TestResults/coverage.info 
