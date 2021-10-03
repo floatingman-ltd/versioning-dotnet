@@ -11,7 +11,9 @@ public bool ShouldBe(SemVer semVer)
             System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
             string version = fvi.FileVersion;
 
-            return true;
+            var v = new SemVer(version);
+
+            return semVer == v;
         }
     }
 }
