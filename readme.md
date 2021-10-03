@@ -38,6 +38,18 @@ We brought in three github action definition files.
 
 They pretty much cover off the goals from above.
 
+### Configuring the Build
+
+## Configuring the Tests
+
+Setup the tooling to generate `coverage.info` file.
+
+```sh
+dotnet add Versioner.Tests package coverlet.msbuild
+```
+
+> Don't forget to add the `TestResults/` to the `.gitignore` file.
+
 ## Added Bonus
 
 Adding a script that makes it dificult to **accidentally** push into main / master / something else.
