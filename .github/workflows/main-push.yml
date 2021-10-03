@@ -15,14 +15,11 @@ jobs:
       with:
         fetch-depth: 0
 
-    # - name: Install GitVersion
-    #   uses: gittools/actions/gitversion/setup@v0.9.7
-    #   with:
-    #     versionSpec: '5.x'
-    # - name: Determine Version
-    #   id: gitversion
-    #   uses: gittools/actions/gitversion/execute@v0.9.7
-    #
+    - name: Setup Gitversion
+      uses: dotnet/nbgv@master
+      id: nbgv
+      run: echo `SemVer2 = ${{ steps.nbgv.outputs.SemVer2 }}''
+
     - name: Config nuget
       run: >
         dotnet nuget add source "https://nuget.pkg.github.com/floatingman-ltd/index.json" 
@@ -33,45 +30,45 @@ jobs:
     - name: Pack Nuget Package
       run: >
         dotnet pack Versioner/Versioner.csproj --configuration Release 
-        /p:AssemblyVersion='${{ steps.gitversion.outputs.assemblySemVer }}' 
-        /p:FileVersion='${{ steps.gitversion.outputs.assemblySemFileVer }}' 
-        /p:InformationalVersion='${{ steps.gitversion.outputs.nuGetVersion }}' 
-        /p:Version='${{ steps.gitversion.outputs.nuGetVersion }}'
+        /p:AssemblyVersion='${{ steps.nbgv.outputs.assemblySemVer }}' 
+        /p:FileVersion='${{ steps.nbgv.outputs.assemblySemFileVer }}' 
+        /p:InformationalVersion='${{ steps.nbgv.outputs.nuGetVersion }}' 
+        /p:Version='${{ steps.nbgv.outputs.nuGetVersion }}'
     - name: Publish nuget to Github
       run: >
         dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} 
         --source "https://api.nuget.org/v3/index.json"
     - name: Display GitVersion outputs
       run: |
-        echo "Major: ${{ steps.gitversion.outputs.major }}"
-        echo "Minor: ${{ steps.gitversion.outputs.minor }}"
-        echo "Patch: ${{ steps.gitversion.outputs.patch }}"
-        echo "PreReleaseTag: ${{ steps.gitversion.outputs.preReleaseTag }}"
-        echo "PreReleaseTagWithDash: ${{ steps.gitversion.outputs.preReleaseTagWithDash }}"
-        echo "PreReleaseLabel: ${{ steps.gitversion.outputs.preReleaseLabel }}"
-        echo "PreReleaseNumber: ${{ steps.gitversion.outputs.preReleaseNumber }}"
-        echo "WeightedPreReleaseNumber: ${{ steps.gitversion.outputs.weightedPreReleaseNumber }}"
-        echo "BuildMetaData: ${{ steps.gitversion.outputs.buildMetaData }}"
-        echo "BuildMetaDataPadded: ${{ steps.gitversion.outputs.buildMetaDataPadded }}"
-        echo "FullBuildMetaData: ${{ steps.gitversion.outputs.fullBuildMetaData }}"
-        echo "MajorMinorPatch: ${{ steps.gitversion.outputs.majorMinorPatch }}"
-        echo "SemVer: ${{ steps.gitversion.outputs.semVer }}"
+        echo "Major: ${{ steps.nbgv.outputs.major }}"
+        echo "Minor: ${{ steps.nbgv.outputs.minor }}"
+        echo "Patch: ${{ steps.nbgv.outputs.patch }}"
+        echo "PreReleaseTag: ${{ steps.nbgv.outputs.preReleaseTag }}"
+        echo "PreReleaseTagWithDash: ${{ steps.nbgv.outputs.preReleaseTagWithDash }}"
+        echo "PreReleaseLabel: ${{ steps.nbgv.outputs.preReleaseLabel }}"
+        echo "PreReleaseNumber: ${{ steps.nbgv.outputs.preReleaseNumber }}"
+        echo "WeightedPreReleaseNumber: ${{ steps.nbgv.outputs.weightedPreReleaseNumber }}"
+        echo "BuildMetaData: ${{ steps.gitversion.nbgv.buildMetaData }}"
+        echo "BuildMetaDataPadded: ${{ steps.nbgv.outputs.buildMetaDataPadded }}"
+        echo "FullBuildMetaData: ${{ steps.nbgv.outputs.fullBuildMetaData }}"
+        echo "MajorMinorPatch: ${{ steps.nbgv.outputs.majorMinorPatch }}"
+        echo "SemVer: ${{ steps.nbgv.outputs.semVer }}"
         echo "LegacySemVer: ${{ steps.gitversion.outputs.legacySemVer }}"
-        echo "LegacySemVerPadded: ${{ steps.gitversion.outputs.legacySemVerPadded }}"
-        echo "AssemblySemVer: ${{ steps.gitversion.outputs.assemblySemVer }}"
-        echo "AssemblySemFileVer: ${{ steps.gitversion.outputs.assemblySemFileVer }}"
-        echo "FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
-        echo "InformationalVersion: ${{ steps.gitversion.outputs.informationalVersion }}"
-        echo "BranchName: ${{ steps.gitversion.outputs.branchName }}"
-        echo "EscapedBranchName: ${{ steps.gitversion.outputs.escapedBranchName }}"
-        echo "Sha: ${{ steps.gitversion.outputs.sha }}"
-        echo "ShortSha: ${{ steps.gitversion.outputs.shortSha }}"
-        echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
-        echo "NuGetVersion: ${{ steps.gitversion.outputs.nuGetVersion }}"
-        echo "NuGetPreReleaseTagV2: ${{ steps.gitversion.outputs.nuGetPreReleaseTagV2 }}"
-        echo "NuGetPreReleaseTag: ${{ steps.gitversion.outputs.nuGetPreReleaseTag }}"
-        echo "VersionSourceSha: ${{ steps.gitversion.outputs.versionSourceSha }}"
-        echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.commitsSinceVersionSource }}"
-        echo "CommitsSinceVersionSourcePadded: ${{ steps.gitversion.outputs.commitsSinceVersionSourcePadded }}"
-        echo "UncommittedChanges: ${{ steps.gitversion.outputs.uncommittedChanges }}"
-        echo "CommitDate: ${{ steps.gitversion.outputs.commitDate }}" 
+        echo "LegacySemVerPadded: ${{ steps.nbgv.outputs.legacySemVerPadded }}"
+        echo "AssemblySemVer: ${{ steps.nbgv.outputs.assemblySemVer }}"
+        echo "AssemblySemFileVer: ${{ steps.nbgv.outputs.assemblySemFileVer }}"
+        echo "FullSemVer: ${{ steps.nbgv.outputs.fullSemVer }}"
+        echo "InformationalVersion: ${{ steps.nbgv.outputs.informationalVersion }}"
+        echo "BranchName: ${{ steps.nbgv.outputs.branchName }}"
+        echo "EscapedBranchName: ${{ steps.nbgv.outputs.escapedBranchName }}"
+        echo "Sha: ${{ steps.nbgv.outputs.sha }}"
+        echo "ShortSha: ${{ steps.nbgv.outputs.shortSha }}"
+        echo "NuGetVersionV2: ${{ steps.nbgv.outputs.nuGetVersionV2 }}"
+        echo "NuGetVersion: ${{ steps.nbgv.outputs.nuGetVersion }}"
+        echo "NuGetPreReleaseTagV2: ${{ steps.nbgv.outputs.nuGetPreReleaseTagV2 }}"
+        echo "NuGetPreReleaseTag: ${{ steps.nbgv.outputs.nuGetPreReleaseTag }}"
+        echo "VersionSourceSha: ${{ steps.nbgv.outputs.versionSourceSha }}"
+        echo "CommitsSinceVersionSource: ${{ steps.nbgv.outputs.commitsSinceVersionSource }}"
+        echo "CommitsSinceVersionSourcePadded: ${{ steps.nbgv.outputs.commitsSinceVersionSourcePadded }}"
+        echo "UncommittedChanges: ${{ steps.nbgv.outputs.uncommittedChanges }}"
+        echo "CommitDate: ${{ steps.nbgv.outputs.commitDate }}" 
