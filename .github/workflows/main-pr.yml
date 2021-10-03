@@ -23,10 +23,10 @@ jobs:
         --password ${{ secrets.GITHUB_TOKEN }} 
         --store-password-in-clear-text
 
-      - name: Setup Gitversion
-        uses: dotnet/nbgv@master
-        id: nbgv
-        run: echo `SemVer2 = ${{ steps.nbgv.outputs.SemVer2 }}''
+    - name: Setup Gitversion
+      uses: dotnet/nbgv@master
+      id: nbgv
+      run: echo `SemVer2 = ${{ steps.nbgv.outputs.SemVer2 }}''
     # - name: Install GitVersion
     #   uses: gittools/actions/gitversion/setup@v0.9.7
     #   with:
