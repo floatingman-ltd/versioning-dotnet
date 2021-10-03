@@ -56,8 +56,13 @@ dotnet add Versioner.Tests package coverlet.msbuild
 
 > Don't forget to add the `TestResults/` to the `.gitignore` file.
 
+### Versioning
 
-
+```sh
+dotnet tool install --global nbgv
+export PATH="$PATH:/home/vscode/.dotnet/tools"
+nbgv install
+```
 ## Added Bonus
 
 Adding a script that makes it dificult to **accidentally** push into main / master / something else.
