@@ -27,7 +27,7 @@ jobs:
       uses: dotnet/nbgv@master
       id: nbgv
 
-    - run: echo `SemVer2 = ${{ steps.nbgv.outputs.SemVer2 }}''
+    - run: echo `SemVer2 = ${{ steps.nbgv.outputs.SemVer2 }}`
 
     - name: Pack Nuget Package
       run: >
