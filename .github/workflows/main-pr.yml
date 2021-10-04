@@ -17,7 +17,7 @@ jobs:
 
     - name: Config nuget
       run: >
-        dotnet nuget add source "https://nuget.pkg.github.com/floatingman-ltd/index.json" 
+        dotnet nuget add source "https://nuget.pkg.github.com/waltiam/index.json" 
         --name "GITHUB"
         --username waltiam 
         --password ${{ secrets.GITHUB_TOKEN }} 
