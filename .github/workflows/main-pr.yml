@@ -32,12 +32,13 @@ jobs:
     - name: Pack Nuget Package
       run: >
         dotnet pack Versioner/Versioner.csproj --configuration Debug 
-        /p:AssemblyVersion='${{ steps.nbgv.outputs.assemblySemVer }}' 
-        /p:FileVersion='${{ steps.nbgv.outputs.assemblySemFileVer }}' 
-        /p:InformationalVersion='${{ steps.nbgv.outputs.nuGetVersion }}' 
-        /p:Version='${{ steps.nbgv.outputs.nuGetVersion }}'
+        /p:AssemblyVersion='${{ steps.nbgv.outputs.AssemblyVersion }}' 
+        /p:FileVersion='${{ steps.nbgv.outputs.AssemblyFileVersion }}' 
+        /p:InformationalVersion='${{ steps.nbgv.outputs.NuGetPackageVersion }}' 
+        /p:Version='${{ steps.nbgv.outputs.NuGetPackageVersion }}'
 
     - name: Publish nuget to Github
       run: >
-        dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} 
-        --source "https://nuget.pkg.github.com/waltiam/index.json"
+        dotnet nuget push **/*.nupkg 
+        --api-key ${{ secrets.GITHUB_TOKEN }} 
+        --source "GITHUB"
