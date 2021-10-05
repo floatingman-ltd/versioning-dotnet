@@ -39,6 +39,11 @@ jobs:
 
     - name: Publish nuget to Github
       run: >
+        dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} 
+        --source "https://nuget.pkg.github.com/waltiam/index.json"
+
+    - name: Publish nuget to Github
+      run: >
         dotnet nuget push **/*.nupkg 
         --api-key ${{ secrets.GITHUB_TOKEN }} 
         --source "GITHUB"
