@@ -37,10 +37,10 @@ jobs:
         /p:InformationalVersion='${{ steps.nbgv.outputs.NuGetPackageVersion }}' 
         /p:Version='${{ steps.nbgv.outputs.NuGetPackageVersion }}'
 
-    - name: Publish nuget to Github
-      run: >
-        dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} 
-        --source "https://nuget.pkg.github.com/waltiam/index.json"
+    # - name: Publish nuget to Github
+    #   run: >
+    #     dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} 
+    #     --source "https://nuget.pkg.github.com/waltiam/index.json"
 
     - name: Publish nuget to Github
       run: >
