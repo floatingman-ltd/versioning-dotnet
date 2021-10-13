@@ -27,15 +27,7 @@ jobs:
       uses: dotnet/nbgv@master
       id: nbgv
 
-    - run: echo `SemVer2 = ${{ steps.nbgv.outputs.SemVer2 }}`
-
-    # - name: Pack Nuget Package
-    #   run: >
-    #     dotnet pack Versioner/Versioner.csproj --configuration Debug 
-    #     /p:AssemblyVersion='${{ steps.nbgv.outputs.AssemblyVersion }}' 
-    #     /p:FileVersion='${{ steps.nbgv.outputs.AssemblyFileVersion }}' 
-    #     /p:InformationalVersion='${{ steps.nbgv.outputs.NuGetPackageVersion }}' 
-    #     /p:Version='${{ steps.nbgv.outputs.NuGetPackageVersion }}'
+    - run: echo 'SemVer2 = ${{ steps.nbgv.outputs.SemVer2 }}'
 
     - name: Pack Nuget Package
       run: >
