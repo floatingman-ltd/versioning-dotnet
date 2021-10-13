@@ -2,33 +2,63 @@ name: push into main
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
 
 jobs:
-
-  nuget-publish:
+  main-ci:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
       with:
-        fetch-depth: 0
+        dotnet-version: 5.0.400
 
-    - name: Setup Gitversion
-      uses: dotnet/nbgv@master
-      id: nbgv
+    - name: Install dependencies
+      run: dotnet restore
 
-    - name: Pack Nuget Package
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Test and Coverage
+      # dotnet test src/Floatingman.CommandLineParser.Tests/Floatingman.CommandLineParser.Tests.csproj  /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      # The project name is not actually needed at this point - it will build and tests each test project.
       run: >
-        dotnet pack Versioner/Versioner.csproj --configuration Release 
-        /p:AssemblyVersion='${{ steps.nbgv.outputs.assemblySemVer }}' 
-        /p:FileVersion='${{ steps.nbgv.outputs.assemblySemFileVer }}' 
-        /p:InformationalVersion='${{ steps.nbgv.outputs.nuGetVersion }}' 
-        /p:Version='${{ steps.nbgv.outputs.nuGetVersion }}'
+        dotnet test 
+        /p:CollectCoverage=true 
+        /p:CoverletOutput=TestResults/ 
+        /p:CoverletOutputFormat=lcov
 
-    - name: Publish nuget to Github
-      run: >
-        dotnet nuget push **/*.nupkg 
-        --api-key ${{ secrets.NUGET_API_KEY }} 
-        --source "nuget.org"
+    - name: Publish coverage report to coveralls.io   
+      uses: coverallsapp/github-action@master   
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }} 
+        path-to-lcov: Versioner.Tests/TestResults/coverage.info 
+
+  # nuget-publish:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #     with:
+  #       fetch-depth: 0
+
+  #   - name: Setup Gitversion
+  #     uses: dotnet/nbgv@master
+  #     id: nbgv
+
+  #   - name: Pack Nuget Package
+  #     run: >
+  #       dotnet pack Versioner/Versioner.csproj --configuration Release 
+  #       /p:AssemblyVersion='${{ steps.nbgv.outputs.assemblySemVer }}' 
+  #       /p:FileVersion='${{ steps.nbgv.outputs.assemblySemFileVer }}' 
+  #       /p:InformationalVersion='${{ steps.nbgv.outputs.nuGetVersion }}' 
+  #       /p:Version='${{ steps.nbgv.outputs.nuGetVersion }}'
+
+  #   - name: Publish nuget to Github
+  #     run: >
+  #       dotnet nuget push **/*.nupkg 
+  #       --api-key ${{ secrets.NUGET_API_KEY }} 
+  #       --source "nuget.org"
