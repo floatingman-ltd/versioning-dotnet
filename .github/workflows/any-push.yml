@@ -2,9 +2,9 @@ name: push to any
 
 on:
   workflow_dispatch:
-  push:
-    branches-ignore:
-      [main]
+  # push:
+  #   branches-ignore:
+  #     [main]
 
 jobs:
   build:
@@ -41,42 +41,3 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} 
         path-to-lcov: Versioner.Tests/TestResults/coverage.info 
-
-    - name: Setup Gitversion
-      uses: dotnet/nbgv@master
-      id: nbgv
-
-    - name: Display GitVersion outputs
-      run: |
-        echo "CloudBuildNumber: ${{ steps.nbgv.outputs.CloudBuildNumber }}"
-        echo "Minor: ${{ steps.nbgv.outputs.minor }}"
-        echo "Patch: ${{ steps.nbgv.outputs.patch }}"
-        echo "PreReleaseTag: ${{ steps.nbgv.outputs.preReleaseTag }}"
-        echo "PreReleaseTagWithDash: ${{ steps.nbgv.outputs.preReleaseTagWithDash }}"
-        echo "PreReleaseLabel: ${{ steps.nbgv.outputs.preReleaseLabel }}"
-        echo "PreReleaseNumber: ${{ steps.nbgv.outputs.preReleaseNumber }}"
-        echo "WeightedPreReleaseNumber: ${{ steps.nbgv.outputs.weightedPreReleaseNumber }}"
-        echo "BuildMetaData: ${{ steps.gitversion.nbgv.buildMetaData }}"
-        echo "BuildMetaDataPadded: ${{ steps.nbgv.outputs.buildMetaDataPadded }}"
-        echo "FullBuildMetaData: ${{ steps.nbgv.outputs.fullBuildMetaData }}"
-        echo "MajorMinorPatch: ${{ steps.nbgv.outputs.majorMinorPatch }}"
-        echo "SemVer: ${{ steps.nbgv.outputs.semVer }}"
-        echo "LegacySemVer: ${{ steps.gitversion.outputs.legacySemVer }}"
-        echo "LegacySemVerPadded: ${{ steps.nbgv.outputs.legacySemVerPadded }}"
-        echo "AssemblySemVer: ${{ steps.nbgv.outputs.assemblySemVer }}"
-        echo "AssemblySemFileVer: ${{ steps.nbgv.outputs.assemblySemFileVer }}"
-        echo "FullSemVer: ${{ steps.nbgv.outputs.fullSemVer }}"
-        echo "InformationalVersion: ${{ steps.nbgv.outputs.informationalVersion }}"
-        echo "BranchName: ${{ steps.nbgv.outputs.branchName }}"
-        echo "EscapedBranchName: ${{ steps.nbgv.outputs.escapedBranchName }}"
-        echo "Sha: ${{ steps.nbgv.outputs.sha }}"
-        echo "ShortSha: ${{ steps.nbgv.outputs.shortSha }}"
-        echo "NuGetVersionV2: ${{ steps.nbgv.outputs.nuGetVersionV2 }}"
-        echo "NuGetVersion: ${{ steps.nbgv.outputs.nuGetVersion }}"
-        echo "NuGetPreReleaseTagV2: ${{ steps.nbgv.outputs.nuGetPreReleaseTagV2 }}"
-        echo "NuGetPreReleaseTag: ${{ steps.nbgv.outputs.nuGetPreReleaseTag }}"
-        echo "VersionSourceSha: ${{ steps.nbgv.outputs.versionSourceSha }}"
-        echo "CommitsSinceVersionSource: ${{ steps.nbgv.outputs.commitsSinceVersionSource }}"
-        echo "CommitsSinceVersionSourcePadded: ${{ steps.nbgv.outputs.commitsSinceVersionSourcePadded }}"
-        echo "UncommittedChanges: ${{ steps.nbgv.outputs.uncommittedChanges }}"
-        echo "CommitDate: ${{ steps.nbgv.outputs.commitDate }}" 

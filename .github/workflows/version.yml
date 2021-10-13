@@ -1,0 +1,76 @@
+name: push to any
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      [main]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.400
+
+    - name: Install dependencies
+      run: dotnet restore
+
+    # - name: Build
+    #   run: dotnet build --configuration Release --no-restore
+
+    # - name: Test and Coverage
+    #   # dotnet test src/Floatingman.CommandLineParser.Tests/Floatingman.CommandLineParser.Tests.csproj  /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+    #   # The project name is not actually needed at this point - it will build and tests each test project.
+    #   run: >
+    #     dotnet test 
+    #     /p:CollectCoverage=true 
+    #     /p:CoverletOutput=TestResults/ 
+    #     /p:CoverletOutputFormat=lcov
+
+    # - name: Publish coverage report to coveralls.io   
+    #   uses: coverallsapp/github-action@master   
+    #   with:
+    #     github-token: ${{ secrets.GITHUB_TOKEN }} 
+    #     path-to-lcov: Versioner.Tests/TestResults/coverage.info 
+
+    - name: Setup Gitversion
+      uses: dotnet/nbgv@master
+      id: nbgv
+
+    - name: Display GitVersion outputs
+      run: |
+        echo "CloudBuildNumber: ${{ steps.nbgv.outputs.CloudBuildNumber }}"
+        echo "VersionFIleFound: ${{ steps.nbgv.outputs.VersionFIleFound }}"
+        echo "AssemblyVersion: ${{ steps.nbgv.outputs.AssemblyVersion }}"
+        echo "AssemblyFileVersion: ${{ steps.nbgv.outputs.AssemblyFileVersion }}"
+        echo "AssemblyInformationalVersion: ${{ steps.nbgv.outputs.AssemblyInformationalVersion }}"
+        echo "PublicRelease: ${{ steps.nbgv.outputs.PublicRelease }}"
+        echo "PrereleaseVersion: ${{ steps.nbgv.outputs.PrereleaseVersion }}"
+        echo "PrereleaseVersionNoLeadingHyphen: ${{ steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen }}"
+        echo "SimpleVersion: ${{ steps.gitversion.nbgv.SimpleVersion }}"
+        echo "BuildNumber: ${{ steps.nbgv.outputs.BuildNumber }}"
+        echo "VersionRevision: ${{ steps.nbgv.outputs.VersionRevision }}"
+        echo "MajorMinorVersion: ${{ steps.nbgv.outputs.MajorMinorVersion }}"
+        echo "VersionMajor: ${{ steps.nbgv.outputs.VersionMajor }}"
+        echo "VersionMinor: ${{ steps.gitversion.outputs.VersionMinor }}"
+        echo "GitCommitId: ${{ steps.nbgv.outputs.GitCommitId }}"
+        echo "GitCommitIdShort: ${{ steps.nbgv.outputs.GitCommitIdShort }}"
+        echo "GitCommitDate: ${{ steps.nbgv.outputs.GitCommitDate }}"
+        echo "VersionHeight: ${{ steps.nbgv.outputs.VersionHeight }}"
+        echo "VersionHeightOffset: ${{ steps.nbgv.outputs.VersionHeightOffset }}"
+        echo "Version: ${{ steps.nbgv.outputs.Version }}"
+        echo "BuildMetadataFragment: ${{ steps.nbgv.outputs.BuildMetadataFragment }}"
+        echo "NuGetPackageVersion: ${{ steps.nbgv.outputs.NuGetPackageVersion }}"
+        echo "ChocolateyPackageVersion: ${{ steps.nbgv.outputs.ChocolateyPackageVersion }}"
+        echo "NpmPackageVersion: ${{ steps.nbgv.outputs.NpmPackageVersion }}"
+        echo "SemVer1: ${{ steps.nbgv.outputs.SemVer1 }}"
+        echo "SemVer2: ${{ steps.nbgv.outputs.SemVer2 }}"
