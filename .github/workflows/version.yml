@@ -56,7 +56,7 @@ jobs:
         echo "PublicRelease: ${{ steps.nbgv.outputs.PublicRelease }}"
         echo "PrereleaseVersion: ${{ steps.nbgv.outputs.PrereleaseVersion }}"
         echo "PrereleaseVersionNoLeadingHyphen: ${{ steps.nbgv.outputs.PrereleaseVersionNoLeadingHyphen }}"
-        echo "SimpleVersion: ${{ steps.gitversion.nbgv.SimpleVersion }}"
+        echo "SimpleVersion: ${{ steps.nbgv.outputs.SimpleVersion }}"
         echo "BuildNumber: ${{ steps.nbgv.outputs.BuildNumber }}"
         echo "VersionRevision: ${{ steps.nbgv.outputs.VersionRevision }}"
         echo "MajorMinorVersion: ${{ steps.nbgv.outputs.MajorMinorVersion }}"
