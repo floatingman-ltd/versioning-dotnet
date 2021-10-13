@@ -6,10 +6,15 @@
     <Authors>Walt Speelman</Authors>
     <CopyRight>(c) 2021 Walt Speelman</CopyRight>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/floatingman-ltd/versioning-dotnet</RepositoryUrl>  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Floatingman.Common" Version="0.2.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\readme.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
