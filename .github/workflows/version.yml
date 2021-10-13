@@ -61,7 +61,7 @@ jobs:
         echo "VersionRevision: ${{ steps.nbgv.outputs.VersionRevision }}"
         echo "MajorMinorVersion: ${{ steps.nbgv.outputs.MajorMinorVersion }}"
         echo "VersionMajor: ${{ steps.nbgv.outputs.VersionMajor }}"
-        echo "VersionMinor: ${{ steps.gitversion.outputs.VersionMinor }}"
+        echo "VersionMinor: ${{ steps.nbgv.outputs.VersionMinor }}"
         echo "GitCommitId: ${{ steps.nbgv.outputs.GitCommitId }}"
         echo "GitCommitIdShort: ${{ steps.nbgv.outputs.GitCommitIdShort }}"
         echo "GitCommitDate: ${{ steps.nbgv.outputs.GitCommitDate }}"
