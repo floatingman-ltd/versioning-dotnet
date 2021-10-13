@@ -1,4 +1,4 @@
-name: push to any
+name: Versioning
 
 on:
   workflow_dispatch:
