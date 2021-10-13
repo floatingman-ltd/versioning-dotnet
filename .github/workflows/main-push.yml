@@ -19,16 +19,6 @@ jobs:
       uses: dotnet/nbgv@master
       id: nbgv
 
-    - run: echo `SemVer2 = ${{ steps.nbgv.outputs.SemVer2 }}''
-
-    # - name: Config nuget
-    #   run: >
-    #     dotnet nuget add source "https://nuget.pkg.github.com/floatingman-ltd/index.json" 
-    #     --name "GITHUB"
-    #     --username waltiam 
-    #     --password ${{ secrets.GITHUB_TOKEN }} 
-    #     --store-password-in-clear-text
-    #
     - name: Pack Nuget Package
       run: >
         dotnet pack Versioner/Versioner.csproj --configuration Release 
@@ -36,10 +26,12 @@ jobs:
         /p:FileVersion='${{ steps.nbgv.outputs.assemblySemFileVer }}' 
         /p:InformationalVersion='${{ steps.nbgv.outputs.nuGetVersion }}' 
         /p:Version='${{ steps.nbgv.outputs.nuGetVersion }}'
+
     - name: Publish nuget to Github
       run: >
         dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} 
         --source "https://api.nuget.org/v3/index.json"
+
     - name: Display GitVersion outputs
       run: |
         echo "Major: ${{ steps.nbgv.outputs.major }}"
