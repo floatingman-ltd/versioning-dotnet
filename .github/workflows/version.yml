@@ -27,8 +27,6 @@ jobs:
     - name: Setup Gitversion
       uses: dotnet/nbgv@master
       id: nbgv
-      with:
-        stamp: version.json
 
     - name: Display GitVersion outputs
       run: |
