@@ -30,7 +30,7 @@ jobs:
     - name: Publish nuget to Github
       run: >
         dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} 
-        --source "https://api.nuget.org/v3/index.json"
+        --source "nuget.org"
 
     - name: Display GitVersion outputs
       run: |
