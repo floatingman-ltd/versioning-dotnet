@@ -7,8 +7,8 @@ on:
       [release/v*]
 
 jobs:
-  build:
 
+  nuget-publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,22 +16,29 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.400
-
-    - name: Install dependencies
-      run: dotnet restore
-
     - name: Setup Gitversion
       uses: dotnet/nbgv@master
       id: nbgv
 
+    - name: Pack Nuget Package
+      run: >
+        dotnet pack Versioner/Versioner.csproj --configuration Release 
+        /p:AssemblyVersion='${{ steps.nbgv.outputs.assemblySemVer }}' 
+        /p:FileVersion='${{ steps.nbgv.outputs.assemblySemFileVer }}' 
+        /p:InformationalVersion='${{ steps.nbgv.outputs.nuGetVersion }}' 
+        /p:Version='${{ steps.nbgv.outputs.nuGetVersion }}'
+
+    # - name: Publish nuget to Github
+    #   run: >
+    #     dotnet nuget push **/*.nupkg 
+    #     --api-key ${{ secrets.NUGET_API_KEY }} 
+    #     --source "nuget.org"
+    #     
+
     - name: Display GitVersion outputs
       run: |
         echo "CloudBuildNumber: ${{ steps.nbgv.outputs.CloudBuildNumber }}"
-        echo "VersionFIleFound: ${{ steps.nbgv.outputs.VersionFIleFound }}"
+        echo "VersionFileFound: ${{ steps.nbgv.outputs.VersionFileFound }}"
         echo "AssemblyVersion: ${{ steps.nbgv.outputs.AssemblyVersion }}"
         echo "AssemblyFileVersion: ${{ steps.nbgv.outputs.AssemblyFileVersion }}"
         echo "AssemblyInformationalVersion: ${{ steps.nbgv.outputs.AssemblyInformationalVersion }}"
