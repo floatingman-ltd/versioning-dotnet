@@ -26,7 +26,7 @@ jobs:
         /p:CollectCoverage=true 
         /p:CoverletOutput=TestResults/ 
         /p:CoverletOutputFormat=lcov
-        Versioner.sln
+        Version.sln
     
   semantic-release:
       needs: test
