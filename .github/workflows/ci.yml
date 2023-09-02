@@ -80,5 +80,5 @@ jobs:
     # - name: Publish nuget to Github -> this fails
     #   run: >
     #     dotnet nuget push **/*.nupkg 
-    #     --api-key ${{ secrets.GITHUB_TOKEN }} 
+    #     --api-key ${{ secrets.NUGET_API_KEY }} 
     #     --source "GITHUB"
