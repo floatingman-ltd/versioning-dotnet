@@ -74,7 +74,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Push Package to GitHub
-      run: dotnet nuget push --api-key ${{secrets.GITHUB_TOKEN}} --source "https://nuget.pkg.github.com/floatingman-it/index.json" *.nupkg
+      run: dotnet nuget push --api-key ${{secrets.GITHUB_TOKEN}} --source "https://nuget.pkg.github.com/floatingman-ltd/index.json" *.nupkg
 
 
   nuget-publish:
