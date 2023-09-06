@@ -2,83 +2,34 @@ name: CI
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches: [ main ]
-  # pull_request:
-  #   branches: [ main ]
+  push:
+    branches-ignore:
+      - 'main'
 
 jobs:
 
-  main-ci:
+  test:
+    name: Test Project
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
 
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-  
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 5.0.400
+        dotnet-version: 7.0.x
 
-    - name: Install dependencies
-      run: dotnet restore
-
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-
-    - name: Test and Coverage
-      # dotnet test src/Floatingman.CommandLineParser.Tests/Floatingman.CommandLineParser.Tests.csproj  /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
-      # The project name is not actually needed at this point - it will build and tests each test project.
+    - name: Test
       run: >
         dotnet test 
         /p:CollectCoverage=true 
         /p:CoverletOutput=TestResults/ 
         /p:CoverletOutputFormat=lcov
+        Version.sln
 
     - name: Publish coverage report to coveralls.io   
       uses: coverallsapp/github-action@master   
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }} 
         path-to-lcov: Versioner.Tests/TestResults/coverage.info 
-
-  # internal-publish:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-
-    # - name: Config nuget
-    #   run: >
-    #     dotnet nuget add source "https://nuget.pkg.github.com/floatingman-ltd/index.json" 
-    #     --name "GITHUB"
-    #     --username waltiam 
-    #     --password ${{ secrets.GITHUB_TOKEN }} 
-    #     --store-password-in-clear-text
-
-    # - name: Setup Gitversion
-    #   uses: dotnet/nbgv@master
-    #   id: nbgv
-
-    # - run: echo 'SemVer2 = ${{ steps.nbgv.outputs.SemVer2 }}'
-
-    # - name: Pack Nuget Package
-    #   run: >
-    #     dotnet pack Versioner/Versioner.csproj --configuration Debug 
-    #     /p:AssemblyVersion='0.0.1' 
-    #     /p:FileVersion='0.0.1' 
-    #     /p:InformationalVersion='${{ steps.nbgv.outputs.NuGetPackageVersion }}' 
-    #     /p:Version='${{ steps.nbgv.outputs.NuGetPackageVersion }}'
-
-    # # - name: Publish nuget to Github -> this works
-    # #   run: >
-    # #     dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} 
-    # #     --source "https://nuget.pkg.github.com/floatingman-ltd/index.json"
-
-
-    # - name: Publish nuget to Github -> this fails
-    #   run: >
-    #     dotnet nuget push **/*.nupkg 
-    #     --api-key ${{ secrets.NUGET_API_KEY }} 
-    #     --source "GITHUB"
