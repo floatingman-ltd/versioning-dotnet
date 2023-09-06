@@ -13,6 +13,10 @@
   - _push into main_
   - pushes a `Release` build to _nuget_ 
   
+## Status
+
+[![Coverage Status](https://coveralls.io/repos/github/floatingman-ltd/versioning-dotnet/badge.svg?branch=versioning)](https://coveralls.io/github/floatingman-ltd/versioning-dotnet?branch=versioning)
+
 ## Tools in Play
 
 ### Setup Initial DotNet
