@@ -1,12 +1,16 @@
 # Setting up CI pipeline for a DotNet/GitHub project
 
 - every branch has an action that on _push_:
+  - `ci.yml`
+  - _CI_
   - builds
   - tests
   - publishes coverage (to coveralls)
 - `main` branch that has an action that on _opening a PR_:
   - pushes a `Debug` build to _github packages_
 - `main` branch that has an action that on _push_:
+  - `main-push.yml`
+  - _push into main_
   - pushes a `Release` build to _nuget_ 
   
 ## Tools in Play
