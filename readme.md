@@ -1,13 +1,13 @@
-# Setting up Versioning in Dotnet
+# Setting up CI pipeline for a DotNet/GitHub project
 
-- every branch has an action that:
+- every branch has an action that on _push_:
   - builds
   - tests
-  - publishes coverage
-- `main` branch that has a release action that:
-  - pushes a `Release` build to _nuget_
-- when a PR is opened into `main` an action:
+  - publishes coverage (to coveralls)
+- `main` branch that has an action that on _opening a PR_:
   - pushes a `Debug` build to _github packages_
+- `main` branch that has an action that on _push_:
+  - pushes a `Release` build to _nuget_ 
   
 ## Tools in Play
 
