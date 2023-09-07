@@ -1,4 +1,4 @@
-name: push into main
+name: Push into main
 
 on:
   workflow_dispatch:
@@ -46,6 +46,7 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_branches: 'main'
 
       - name: Create a GitHub release
         uses: ncipollo/release-action@v1
