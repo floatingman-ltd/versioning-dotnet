@@ -1,12 +1,5 @@
 ﻿using System;
+using Version = Versioner.Version;
 
-namespace Versioner.Usage
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
-    }
-}
+var version = new Version();
+Console.WriteLine(version.Is());
