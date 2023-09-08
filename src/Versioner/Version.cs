@@ -11,10 +11,7 @@ namespace Versioner
             System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
             string version = fvi.FileVersion;
 
-            // var v = new SemVer(version);
-
             return true;
-            // return semVer == v;
         }
 
         public SemVer Is()
