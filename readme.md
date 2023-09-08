@@ -18,7 +18,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/floatingman-ltd/versioning-dotnet/badge.svg?branch=versioning)](https://coveralls.io/github/floatingman-ltd/versioning-dotnet?branch=versioning)
 [![BSD 1 Clause License](https://img.shields.io/badge/Licence-BSD_1_Clause-yellow.svg)](https://opensource.org/license/bsd-1-clause/)
 ![Nuget](https://img.shields.io/nuget/dt/versioner)
-
 ![GitHub release (with filter)](https://img.shields.io/github/v/release/floatingman-ltd/versioning-dotnet)
 
 
